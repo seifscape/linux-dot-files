@@ -1,0 +1,67 @@
+# Everything shared with the Mac is pulled from macos-dot-files rather than
+# copied here, so there is one real copy of each file. Push on the Mac, then
+# `chezmoi update` (or `chezmoi apply --refresh-externals`) on a server.
+#
+# All entries below read from one tarball, which chezmoi downloads once and
+# caches. `path` is relative to the repo root.
+
+{{ $macos := printf "https://github.com/seifscape/macos-dot-files/archive/%s.tar.gz" .macosRef -}}
+
+{{ range $target, $path := dict
+    ".aliases"                          "zsh/.aliases"
+    ".functions"                        "zsh/.functions"
+    ".exports"                          "zsh/.exports"
+    ".zsh_bindings"                     "zsh/.zsh_bindings"
+    ".tmux.conf"                        "tmux/.tmux.conf"
+    ".config/tmux/tmux.reset.conf"      "tmux/.config/tmux/tmux.reset.conf"
+    ".config/starship.toml"             "starship/.config/starship.toml"
+    ".config/atuin/config.toml"         "atuin/.config/atuin/config.toml"
+    ".config/btop/btop.conf"            "btop/.config/btop/btop.conf"
+    ".config/delta/delta.config"        "delta/.config/delta/delta.config"
+    ".config/gh-dash/config.yml"        "gh-dash/.config/gh-dash/config.yml"
+    ".gitignore_global"                 "git/.gitignore_global"
+-}}
+[{{ $target | quote }}]
+    type = "archive-file"
+    url = {{ $macos | quote }}
+    stripComponents = 1
+    path = {{ $path | quote }}
+    refreshPeriod = "24h"
+
+{{ end -}}
+
+[".config/scripts/dev-updates.sh"]
+    type = "archive-file"
+    url = {{ $macos | quote }}
+    stripComponents = 1
+    path = "scripts/.config/scripts/dev-updates.sh"
+    executable = true
+    refreshPeriod = "24h"
+
+[".config/nvim"]
+    type = "archive"
+    url = {{ $macos | quote }}
+    stripComponents = 4
+    include = ["*/nvim/.config/nvim/**"]
+    refreshPeriod = "24h"
+
+# ── third-party ────────────────────────────────────────────────────────────
+# The Mac README lists these as manual clones; here chezmoi keeps them.
+
+[".tmux/plugins/tpm"]
+    type = "git-repo"
+    url = "https://github.com/tmux-plugins/tpm"
+    refreshPeriod = "168h"
+
+[".config/delta-themes"]
+    type = "git-repo"
+    url = "https://github.com/catppuccin/delta"
+    refreshPeriod = "168h"
+
+{{ range list "Frappe" "Latte" "Mocha" -}}
+[".config/bat/themes/Catppuccin {{ . }}.tmTheme"]
+    type = "file"
+    url = "https://raw.githubusercontent.com/catppuccin/bat/main/themes/Catppuccin%20{{ . }}.tmTheme"
+    refreshPeriod = "168h"
+
+{{ end -}}

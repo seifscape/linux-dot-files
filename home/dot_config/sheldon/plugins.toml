@@ -1,0 +1,18 @@
+shell = "zsh"
+
+[plugins.zsh-autosuggestions]
+github = "zsh-users/zsh-autosuggestions"
+
+[plugins.zsh-syntax-highlighting]
+github = "zsh-users/zsh-syntax-highlighting"
+
+[plugins.alias-tips]
+github = "djui/alias-tips"
+
+[plugins.fzf-tab]
+github = "Aloxaf/fzf-tab"
+
+# The Mac sources these from /opt/homebrew/opt/fzf; here fzf comes from mise,
+# so use its built-in integration instead.
+[plugins.fzf]
+inline = 'source <(fzf --zsh)'

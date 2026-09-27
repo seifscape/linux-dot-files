@@ -1,0 +1,14 @@
+#!/bin/bash
+# Re-runs whenever the mise tools or sheldon plugins change:
+#   mise config   {{ include "dot_config/mise/config.toml" | sha256sum }}
+#   sheldon       {{ include "dot_config/sheldon/plugins.toml" | sha256sum }}
+set -euo pipefail
+export PATH="$HOME/.local/bin:$HOME/.local/share/mise/shims:$PATH"
+
+# Unauthenticated GitHub API calls are capped at 60/hour, and resolving
+# "latest" for ~30 tools can hit that. Export GITHUB_TOKEN first if it does.
+mise install --yes
+
+sheldon lock
+bat cache --build            # picks up the Catppuccin themes from externals
+tldr --update || true        # network hiccups here shouldn't fail apply

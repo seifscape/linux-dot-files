@@ -1,0 +1,13 @@
+[include]
+	path = ~/.gitconfig.local
+[core]
+	excludesfile = ~/.gitignore_global
+[push]
+	autoSetupRemote = true
+[include]
+	path = ~/.config/delta-themes/catppuccin-frappe.gitconfig
+	path = ~/.config/delta/delta.config
+[init]
+	defaultBranch = main
+[pull]
+	rebase = true

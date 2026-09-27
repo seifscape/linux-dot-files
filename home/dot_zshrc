@@ -1,0 +1,24 @@
+autoload -Uz compinit && compinit
+# Initialisation
+# mise goes first: it provides sheldon, zoxide, atuin and starship here.
+eval "$(mise activate zsh)"
+eval "$(sheldon source)"
+eval "$(zoxide init zsh)"
+eval "$(fnox activate zsh)"
+eval "$(aube activate zsh)"
+eval "$(atuin init zsh)"
+eval "$(starship init zsh)"
+
+# Source custom configs (pulled from macos-dot-files)
+[ -f ~/.exports ] && source ~/.exports
+[ -f ~/.aliases ] && source ~/.aliases
+[ -f ~/.functions ] && source ~/.functions
+[ -f ~/.zsh_bindings ] && source ~/.zsh_bindings
+
+# Dev tool update checks (mise)
+~/.config/scripts/dev-updates.sh
+
+fastfetch
+
+# print extra white line
+echo

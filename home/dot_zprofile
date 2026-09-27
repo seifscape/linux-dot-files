@@ -1,0 +1,10 @@
+# ====================================
+# Login Shell Environment (.zprofile)
+# Runs once at login — PATH and env setup only
+# ====================================
+
+# --------- mise shims ---------
+# Every CLI tool on this box comes from mise (the Mac uses Homebrew). Shims
+# make them visible to login shells and scripts; .zshrc then swaps in
+# `mise activate` for interactive use.
+path=("$HOME/.local/share/mise/shims" $path)
