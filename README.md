@@ -30,7 +30,7 @@ two headless machines:
 | Machine | Arch |
 |---------|------|
 | Raspberry Pi 5 | `arm64` |
-| UM890 | `x86_64` |
+| Beelink MER9 Max | `x86_64` |
 
 The screenshot shows the Mac. Over SSH from Ghostty the servers look the same, because the
 Mac renders the fonts and colours.
@@ -92,7 +92,7 @@ flowchart LR
     mac -- "tarball, refreshed daily" --> S
     linux -- "chezmoi source" --> S
     U -- "git / raw, weekly" --> S
-    S(["chezmoi apply"]) --> P["Pi 5"] & M["UM890"]
+    S(["chezmoi apply"]) --> P["Pi 5"] & M["Beelink MER9 Max"]
 ```
 
 Edit a shared file on the Mac and push it. The next `chezmoi update` on each server picks it up.
