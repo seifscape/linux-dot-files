@@ -27,10 +27,10 @@ with Sheldon, a Catppuccin Starship prompt, tmux with TPM, LazyVim, Atuin histor
 modern CLI replacements (`eza`, `bat`, `delta`, `zoxide`, `fzf`, `btop` and more). It runs on
 two headless machines:
 
-| Machine | Arch |
-|---------|------|
-| Raspberry Pi 5 | `arm64` |
-| Beelink MER9 Max | `x86_64` |
+| Machine | CPU | RAM | Storage | Arch |
+|---------|-----|-----|---------|------|
+| Raspberry Pi 5 | Cortex-A76 | 8 GB | 2 TB NVMe | `arm64` |
+| Beelink SER9 MAX | Ryzen 7 H 255 | 64 GB DDR5 | 1 TB NVMe | `x86_64` |
 
 The screenshot shows the Mac. Over SSH from Ghostty the servers look the same, because the
 Mac renders the fonts and colours.
@@ -92,7 +92,7 @@ flowchart LR
     mac -- "tarball, refreshed daily" --> S
     linux -- "chezmoi source" --> S
     U -- "git / raw, weekly" --> S
-    S(["chezmoi apply"]) --> P["Pi 5"] & M["Beelink MER9 Max"]
+    S(["chezmoi apply"]) --> P["Pi 5"] & M["Beelink SER9 MAX"]
 ```
 
 Edit a shared file on the Mac and push it. The next `chezmoi update` on each server picks it up.
