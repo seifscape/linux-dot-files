@@ -40,17 +40,17 @@ Mac renders the fonts and colours.
 
 ## Quick start
 
-On a fresh Arch or Raspberry Pi OS (64-bit) install, run:
+On a fresh Arch or Raspberry Pi OS (64-bit, Debian 13 "trixie" based) install, run:
 
 ```bash
-sh -c "$(curl -fsLS get.chezmoi.io)" -b ~/.local/bin -- init --apply seifscape/linux-dot-files
+sh -c "$(curl -fsLS get.chezmoi.io)" -- -b ~/.local/bin init --apply seifscape/linux-dot-files
 ```
 
 That command does five things:
 
 | Step | What happens | Where |
 |:----:|--------------|-------|
-| 1 | Asks for your git name and email, which are stored locally and never committed | [`.chezmoi.toml.tmpl`](home/.chezmoi.toml.tmpl) |
+| 1 | Asks for your git name and email, which are stored locally and never committed, and the machine role: `dev` (default on Arch) or `server` (default elsewhere) | [`.chezmoi.toml.tmpl`](home/.chezmoi.toml.tmpl) |
 | 2 | Installs zsh, tmux, git and build tools with pacman (Arch) or apt (Raspberry Pi OS), and makes zsh the login shell | [`run_once_before_10-base-packages.sh`](home/.chezmoiscripts/run_once_before_10-base-packages.sh) |
 | 3 | Installs [mise](https://mise.jdx.dev) into `~/.local/bin` | [`run_once_before_20-install-mise.sh`](home/.chezmoiscripts/run_once_before_20-install-mise.sh) |
 | 4 | Writes the dotfiles and pulls the shared ones from macos-dot-files | [`.chezmoiexternal.toml.tmpl`](home/.chezmoiexternal.toml.tmpl) |
@@ -63,9 +63,13 @@ exit                 # log back in so zsh becomes your shell
 tmux                 # then press prefix + I to install tmux plugins
 ```
 
+> [!WARNING]
+> Use a trixie-based Raspberry Pi OS. On a Debian 12 "bookworm" image, atuin's prebuilt
+> binary needs glibc 2.38+ and fails at every shell start (bookworm ships 2.36).
+
 > [!TIP]
-> Unauthenticated GitHub API calls are capped at 60 per hour, and there are 30 tools to
-> resolve. If `mise install` stops on a rate limit, `export GITHUB_TOKEN=…` and run
+> Unauthenticated GitHub API calls are capped at 60 per hour, and a `dev` machine has 30 tools
+> to resolve (a `server` has 24). If `mise install` stops on a rate limit, `export GITHUB_TOKEN=…` and run
 > `chezmoi apply` again.
 
 ---
@@ -106,12 +110,12 @@ Edit a shared file on the Mac and push it. The next `chezmoi update` on each ser
 
 | File | How it differs from the Mac |
 |------|-----------------------------|
-| [`.zshrc`](home/dot_zshrc) | Runs `mise activate` first, because mise provides sheldon, zoxide, atuin and starship here |
+| [`.zshrc`](home/dot_zshrc) | Runs `mise activate` first, because mise provides sheldon, zoxide, atuin and starship here; activates fnox and aube only where they're installed |
 | [`.zprofile`](home/dot_zprofile) | Puts mise shims on `PATH` instead of running `brew shellenv`; no OrbStack or VS Code |
 | [`.zshenv`](home/dot_zshenv) | Puts `~/.local/bin` on `PATH`, where mise installs itself |
 | [`.gitconfig`](home/dot_gitconfig) | Leaves out the Sourcetree difftool and Git Credential Manager |
 | [`.gitconfig.local`](home/create_dot_gitconfig.local.tmpl) | Created once from your `init` answers, then left alone |
-| [`mise/config.toml`](home/dot_config/mise/config.toml) | The Mac's runtimes plus the CLI tools Homebrew provides on the Mac |
+| [`mise/config.toml`](home/dot_config/mise/config.toml.tmpl) | The CLI tools Homebrew provides on the Mac, plus the Mac's runtimes on a `dev` machine |
 | [`sheldon/plugins.toml`](home/dot_config/sheldon/plugins.toml) | Loads fzf with `fzf --zsh` instead of from `/opt/homebrew/opt/fzf` |
 | [`.claude/settings.json`](home/dot_claude/modify_settings.json) | Not a copy: merges only the `statusLine` key into Claude Code's own file, so Claude Code shows the `claude-code` profile from `starship.toml`. The Mac's `install.sh` sets the same key with `jq` |
 
@@ -138,18 +142,38 @@ Edit a shared file on the Mac and push it. The next `chezmoi update` on each ser
 ## Tools
 
 Debian's apt is missing most of these tools or ships old versions, and mise has native builds
-for both architectures, so both machines get them from mise even though Arch's repos have them. The runtimes use the same pins as the Mac, with three differences:
-`ruby@ios` and `tuist` are left out, and `python.compile` is off because it would build Python
-from source on the Pi.
+for both architectures, so both machines get them from mise even though Arch's repos have them.
+
+What gets installed depends on the role chosen at `chezmoi init` (stored as `role` in
+`~/.config/chezmoi/chezmoi.toml`; machines set up before roles existed default to `dev` on
+Arch and `server` elsewhere). To switch, run `chezmoi init` again or edit that file, then
+`chezmoi apply`.
+
+| | `dev` (SER9 MAX) | `server` (Pi 5) |
+|---|:-:|:-:|
+| Terminal tools, including Claude Code | ✅ | ✅ |
+| `uv`, `fnox` | ✅ | ✅ |
+| python, node, go, zig, rust, aube | ✅ | — |
+
+A server never compiles anything, so the runtimes would only be weekly re-downloads from
+`dev-updates.sh`. `uv` still gets you Python on demand (`uv run`, `uv tool install`).
 
 ### Runtimes
 
-| Tool | Pin | | Tool | Pin |
-|------|-----|-|------|-----|
-| python | `3.14.3` | | uv | `0.11.6` |
-| node | `24.19.0` | | rust | `latest` |
-| go | `1.24.2` | | fnox | `latest` |
-| zig | `0.11.0` | | aube | `latest` |
+The same pins as the Mac, with three differences: `ruby` and `tuist` are left out, and
+`python.compile` is off because it would build Python from source.
+
+| Tool | Pin | Role | | Tool | Pin | Role |
+|------|-----|------|-|------|-----|------|
+| uv | `0.11.6` | both | | fnox | `latest` | both |
+| python | `3.14.3` | dev | | node | `24.19.0` | dev |
+| go | `1.24.2` | dev | | rust | `latest` | dev |
+| zig | `0.11.0` | dev | | aube | `latest` | dev |
+
+> [!NOTE]
+> On a `server`, the tmux-thumbs hint mode (`prefix + Space`) can't install: it compiles with
+> Rust, and its prebuilt binaries are x86_64 only. Pressing it just opens a pane with an
+> error. Use copy mode (`prefix + [`), which reaches the Mac clipboard over OSC 52.
 
 ### Terminal tools (all `latest`)
 
@@ -218,7 +242,7 @@ linux-dot-files/
     ├── dot_claude/
     │   └── modify_settings.json       # merges statusLine into Claude Code's settings
     └── dot_config/
-        ├── mise/config.toml
+        ├── mise/config.toml.tmpl      # tool list, by role
         └── sheldon/plugins.toml
 ```
 

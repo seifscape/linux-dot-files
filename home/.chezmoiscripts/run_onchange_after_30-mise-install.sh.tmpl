@@ -1,6 +1,7 @@
 #!/bin/bash
-# Re-runs whenever the mise tools or sheldon plugins change:
-#   mise config   {{ include "dot_config/mise/config.toml" | sha256sum }}
+# Re-runs whenever the mise tools or sheldon plugins change. The mise hash is of
+# the rendered file, so switching role between dev and server also re-runs it:
+#   mise config   {{ includeTemplate "dot_config/mise/config.toml.tmpl" . | sha256sum }}
 #   sheldon       {{ include "dot_config/sheldon/plugins.toml" | sha256sum }}
 set -euo pipefail
 export PATH="$HOME/.local/bin:$HOME/.local/share/mise/shims:$PATH"

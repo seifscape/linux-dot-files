@@ -1,13 +1,23 @@
+{{- /* role comes from `chezmoi init`; machines set up before it existed fall back to
+       the same default the prompt uses: dev on Arch, server elsewhere. */ -}}
+{{- $os := "" -}}
+{{- if hasKey .chezmoi "osRelease" -}}{{- $os = get .chezmoi.osRelease "id" -}}{{- end -}}
+{{- $role := get . "role" | default (ternary "dev" "server" (eq $os "arch")) -}}
 [tools]
-# ── runtimes ── same as macos-dot-files, minus ruby@ios and tuist
-python = "3.14.3"
+# ── everywhere ── uv gives Python on demand (uv run, uv tool); fnox holds secrets.
 uv = "0.11.6"
+fnox = "latest"
+{{- if eq $role "dev" }}
+
+# ── runtimes (dev only) ── same as macos-dot-files, minus ruby and tuist. A
+# server never compiles anything, so these would only be weekly re-downloads.
+python = "3.14.3"
 zig = "0.11.0"
 go = "1.24.2"
 node = "24.19.0"
-rust = "latest"
-fnox = "latest"
-aube = "latest"
+rust = "latest"      # also builds tmux-thumbs on first use
+aube = "latest"      # Node package manager, so it follows node
+{{- end }}
 
 # ── terminal tools ── Homebrew provides these on the Mac. Raspberry Pi OS's apt is
 # missing most of them and mise has arm64 builds for the Pi; Arch (SER9 MAX) uses

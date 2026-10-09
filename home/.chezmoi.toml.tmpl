@@ -1,10 +1,17 @@
 {{- /* Asked once on `chezmoi init`; answers stay in ~/.config/chezmoi, never in git. */ -}}
 {{- $name := promptStringOnce . "name" "Git name" -}}
 {{- $email := promptStringOnce . "email" "Git email" -}}
+{{- /* dev gets the language runtimes; server keeps only the terminal tools. */ -}}
+{{- $roleDefault := "server" -}}
+{{- if and (hasKey .chezmoi "osRelease") (eq (get .chezmoi.osRelease "id") "arch") -}}{{- $roleDefault = "dev" -}}{{- end -}}
+{{- $role := promptChoiceOnce . "role" "Machine role" (list "dev" "server") $roleDefault -}}
 
 [data]
   name = {{ $name | quote }}
   email = {{ $email | quote }}
+  # dev: language runtimes plus the terminal tools (SER9 MAX).
+  # server: terminal tools, uv and fnox only (Pi 5). See dot_config/mise/config.toml.tmpl.
+  role = {{ $role | quote }}
   # Branch of macos-dot-files the shared configs come from. Point it at a
   # feature branch to try changes before merging them on the Mac side.
   macosRef = "main"

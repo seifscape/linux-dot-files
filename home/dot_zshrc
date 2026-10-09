@@ -4,8 +4,9 @@ autoload -Uz compinit && compinit
 eval "$(mise activate zsh)"
 eval "$(sheldon source)"
 eval "$(zoxide init zsh)"
-eval "$(fnox activate zsh)"
-eval "$(aube activate zsh)"
+# fnox and aube are dev-role tools in mise; skip them where they aren't installed.
+(( $+commands[fnox] )) && eval "$(fnox activate zsh)"
+(( $+commands[aube] )) && eval "$(aube activate zsh)"
 eval "$(atuin init zsh)"
 eval "$(starship init zsh)"
 
