@@ -68,8 +68,8 @@ tmux                 # then press prefix + I to install tmux plugins
 > binary needs glibc 2.38+ and fails at every shell start (bookworm ships 2.36).
 
 > [!TIP]
-> Unauthenticated GitHub API calls are capped at 60 per hour, and a `dev` machine has 30 tools
-> to resolve (a `server` has 25). If `mise install` stops on a rate limit, `export GITHUB_TOKEN=…` and run
+> Unauthenticated GitHub API calls are capped at 60 per hour, and a `dev` machine has 31 tools
+> to resolve (a `server` has 26). If `mise install` stops on a rate limit, `export GITHUB_TOKEN=…` and run
 > `chezmoi apply` again.
 
 ---
@@ -184,7 +184,7 @@ The same pins as the Mac, with three differences: `ruby` and `tuist` are left ou
 sheldon   starship  zoxide    atuin     fzf       eza       bat
 delta     fd        ripgrep   jq        btop      duf       dust
 procs     tealdeer  yazi      fastfetch neovim    lazygit   gh
-claude
+claude    lazydocker
 ```
 
 **From pacman / apt:** `zsh` `tmux` `git` `curl` `wget` `tree` `ncdu` `base-devel` / `build-essential`, plus JetBrains Mono Nerd Font, the Mac's Ghostty font, for a local terminal (over SSH the Mac draws the fonts): `ttf-jetbrains-mono-nerd` from pacman on Arch, and the [nerd-fonts release](https://github.com/ryanoasis/nerd-fonts/releases) into `~/.local/share/fonts` on the Pi

@@ -19,3 +19,6 @@
 # and leaving this copy in ~/.local/bin means two of them on PATH.
 .local/bin/claude
 .local/share/claude
+
+# lazydocker installed by hand on the Pi; mise provides it now.
+.local/bin/lazydocker
