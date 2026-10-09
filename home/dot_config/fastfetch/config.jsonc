@@ -1,0 +1,9 @@
+// Raspberry Pi OS (trixie) reports itself as plain Debian in /etc/os-release, so
+// fastfetch would show the Debian swirl. Force the Raspberry Pi logo instead.
+// Only written on a Pi; see .chezmoiignore.
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+  "logo": {
+    "source": "raspbian"
+  }
+}

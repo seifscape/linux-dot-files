@@ -69,7 +69,7 @@ tmux                 # then press prefix + I to install tmux plugins
 
 > [!TIP]
 > Unauthenticated GitHub API calls are capped at 60 per hour, and a `dev` machine has 30 tools
-> to resolve (a `server` has 24). If `mise install` stops on a rate limit, `export GITHUB_TOKEN=…` and run
+> to resolve (a `server` has 25). If `mise install` stops on a rate limit, `export GITHUB_TOKEN=…` and run
 > `chezmoi apply` again.
 
 ---
@@ -116,6 +116,8 @@ Edit a shared file on the Mac and push it. The next `chezmoi update` on each ser
 | [`.gitconfig`](home/dot_gitconfig) | Leaves out the Sourcetree difftool and Git Credential Manager |
 | [`.gitconfig.local`](home/create_dot_gitconfig.local.tmpl) | Created once from your `init` answers, then left alone |
 | [`mise/config.toml`](home/dot_config/mise/config.toml.tmpl) | The CLI tools Homebrew provides on the Mac, plus the Mac's runtimes on a `dev` machine |
+| [`fastfetch/config.jsonc`](home/dot_config/fastfetch/config.jsonc) | Pi only ([`.chezmoiignore`](home/.chezmoiignore)): forces the Raspberry Pi logo, since trixie-based Raspberry Pi OS reports itself as plain Debian |
+| `~/.zshrc.local` | Not in the repo. `.zshrc` sources it if present, for one machine's aliases and checks (the Pi's docker and Tailscale bits) |
 | [`sheldon/plugins.toml`](home/dot_config/sheldon/plugins.toml) | Loads fzf with `fzf --zsh` instead of from `/opt/homebrew/opt/fzf` |
 | [`.claude/settings.json`](home/dot_claude/modify_settings.json) | Not a copy: merges two keys into Claude Code's own file and keeps the rest. `statusLine` shows the `claude-code` profile from `starship.toml`, as the Mac's `install.sh` does with `jq`. `env.DISABLE_AUTOUPDATER` leaves updates to mise, the way Homebrew owns them on the Mac; otherwise Claude Code's updater reinstalls itself under `~/.local/share/claude`, leaving two copies |
 
@@ -152,11 +154,12 @@ Arch and `server` elsewhere). To switch, run `chezmoi init` again or edit that f
 | | `dev` (SER9 MAX) | `server` (Pi 5) |
 |---|:-:|:-:|
 | Terminal tools, including Claude Code | ✅ | ✅ |
-| `uv`, `fnox` | ✅ | ✅ |
-| python, node, go, zig, rust, aube | ✅ | — |
+| `uv`, `fnox`, node | ✅ | ✅ |
+| python, go, zig, rust, aube | ✅ | — |
 
-A server never compiles anything, so the runtimes would only be weekly re-downloads from
-`dev-updates.sh`. `uv` still gets you Python on demand (`uv run`, `uv tool install`).
+A server never compiles anything, so the other runtimes would only be weekly re-downloads from
+`dev-updates.sh`. `uv` still gets you Python on demand (`uv run`, `uv tool install`). Node stays
+because the Pi runs Node scripts.
 
 ### Runtimes
 
@@ -166,7 +169,7 @@ The same pins as the Mac, with three differences: `ruby` and `tuist` are left ou
 | Tool | Pin | Role | | Tool | Pin | Role |
 |------|-----|------|-|------|-----|------|
 | uv | `0.11.6` | both | | fnox | `latest` | both |
-| python | `3.14.3` | dev | | node | `24.19.0` | dev |
+| python | `3.14.3` | dev | | node | `24.19.0` | both |
 | go | `1.24.2` | dev | | rust | `latest` | dev |
 | zig | `0.11.0` | dev | | aube | `latest` | dev |
 

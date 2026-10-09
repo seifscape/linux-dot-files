@@ -16,6 +16,9 @@ eval "$(starship init zsh)"
 [ -f ~/.functions ] && source ~/.functions
 [ -f ~/.zsh_bindings ] && source ~/.zsh_bindings
 
+# Machine-specific aliases and checks, never committed (e.g. the Pi's docker aliases)
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local
+
 # Dev tool update checks (mise)
 ~/.config/scripts/dev-updates.sh
 

@@ -3,3 +3,13 @@
 # Ghostty's config now comes from macos-dot-files as ~/.config/ghostty/config.
 # Ghostty also reads config.ghostty, so remove any local one to avoid mixing the two.
 .config/ghostty/config.ghostty
+
+# Oh My Zsh and Powerlevel10k, replaced by sheldon and starship.
+.oh-my-zsh
+.p10k.zsh
+.zshrc.pre-oh-my-zsh
+
+# Claude Code's native installer. mise installs claude now (see mise/config.toml),
+# and leaving this copy in ~/.local/bin means two of them on PATH.
+.local/bin/claude
+.local/share/claude

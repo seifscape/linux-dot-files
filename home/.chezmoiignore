@@ -1,0 +1,6 @@
+# Targets chezmoi skips on some machines.
+
+{{- /* /etc/rpi-issue exists only on Raspberry Pi OS. */}}
+{{- if not (stat "/etc/rpi-issue") }}
+.config/fastfetch
+{{- end }}

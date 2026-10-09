@@ -5,8 +5,10 @@
 {{- $role := get . "role" | default (ternary "dev" "server" (eq $os "arch")) -}}
 [tools]
 # ── everywhere ── uv gives Python on demand (uv run, uv tool); fnox holds secrets.
+# node too: the Pi runs Node scripts, though it builds nothing else.
 uv = "0.11.6"
 fnox = "latest"
+node = "24.19.0"
 {{- if eq $role "dev" }}
 
 # ── runtimes (dev only) ── same as macos-dot-files, minus ruby and tuist. A
@@ -14,7 +16,6 @@ fnox = "latest"
 python = "3.14.3"
 zig = "0.11.0"
 go = "1.24.2"
-node = "24.19.0"
 rust = "latest"      # also builds tmux-thumbs on first use
 aube = "latest"      # Node package manager, so it follows node
 {{- end }}
