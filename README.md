@@ -158,7 +158,7 @@ delta     fd        ripgrep   jq        btop      duf       dust
 procs     tealdeer  yazi      fastfetch neovim    lazygit   gh
 ```
 
-**From pacman / apt:** `zsh` `tmux` `git` `curl` `wget` `tree` `ncdu` `base-devel` / `build-essential`
+**From pacman / apt:** `zsh` `tmux` `git` `curl` `wget` `tree` `ncdu` `base-devel` / `build-essential`, plus JetBrains Mono Nerd Font, the Mac's Ghostty font, for a local terminal (over SSH the Mac draws the fonts): `ttf-jetbrains-mono-nerd` from pacman on Arch, and the [nerd-fonts release](https://github.com/ryanoasis/nerd-fonts/releases) into `~/.local/share/fonts` on the Pi
 
 ---
 
