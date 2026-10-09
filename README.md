@@ -30,7 +30,7 @@ two machines:
 
 | Machine | OS | CPU | RAM | Storage | Arch |
 |---------|----|-----|-----|---------|------|
-| Beelink SER9 MAX | Arch Linux | Ryzen 7 H 255 | 64 GB DDR5 | 1 TB NVMe | `x86_64` |
+| Beelink SER9 MAX | Arch Linux | Ryzen AI 7 350 (Radeon 860M) | 64 GB DDR5 | 1 TB NVMe | `x86_64` |
 | Raspberry Pi 5 | Raspberry Pi OS (64-bit) | Cortex-A76 | 8 GB | 2 TB NVMe | `arm64` |
 
 The screenshot shows the Mac. Over SSH from Ghostty the servers look the same, because the
