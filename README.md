@@ -117,7 +117,7 @@ Edit a shared file on the Mac and push it. The next `chezmoi update` on each ser
 | [`.gitconfig.local`](home/create_dot_gitconfig.local.tmpl) | Created once from your `init` answers, then left alone |
 | [`mise/config.toml`](home/dot_config/mise/config.toml.tmpl) | The CLI tools Homebrew provides on the Mac, plus the Mac's runtimes on a `dev` machine |
 | [`sheldon/plugins.toml`](home/dot_config/sheldon/plugins.toml) | Loads fzf with `fzf --zsh` instead of from `/opt/homebrew/opt/fzf` |
-| [`.claude/settings.json`](home/dot_claude/modify_settings.json) | Not a copy: merges only the `statusLine` key into Claude Code's own file, so Claude Code shows the `claude-code` profile from `starship.toml`. The Mac's `install.sh` sets the same key with `jq` |
+| [`.claude/settings.json`](home/dot_claude/modify_settings.json) | Not a copy: merges two keys into Claude Code's own file and keeps the rest. `statusLine` shows the `claude-code` profile from `starship.toml`, as the Mac's `install.sh` does with `jq`. `env.DISABLE_AUTOUPDATER` leaves updates to mise, the way Homebrew owns them on the Mac; otherwise Claude Code's updater reinstalls itself under `~/.local/share/claude`, leaving two copies |
 
 ### Shared (pulled from [macos-dot-files](https://github.com/seifscape/macos-dot-files))
 
@@ -240,7 +240,7 @@ linux-dot-files/
     ├── dot_zshenv
     ├── dot_zshrc
     ├── dot_claude/
-    │   └── modify_settings.json       # merges statusLine into Claude Code's settings
+    │   └── modify_settings.json       # merges statusLine + DISABLE_AUTOUPDATER into Claude Code's settings
     └── dot_config/
         ├── mise/config.toml.tmpl      # tool list, by role
         └── sheldon/plugins.toml
