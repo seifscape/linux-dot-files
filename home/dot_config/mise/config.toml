@@ -33,6 +33,7 @@ fastfetch = "latest"
 neovim = "latest"
 lazygit = "latest"
 gh = "latest"
+claude = "latest"   # Claude Code; its statusline is the claude-code profile in starship.toml
 
 [settings]
 # The Mac sets python.compile = true; on the Pi that means building Python

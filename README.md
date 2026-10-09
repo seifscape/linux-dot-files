@@ -64,7 +64,7 @@ tmux                 # then press prefix + I to install tmux plugins
 ```
 
 > [!TIP]
-> Unauthenticated GitHub API calls are capped at 60 per hour, and there are 29 tools to
+> Unauthenticated GitHub API calls are capped at 60 per hour, and there are 30 tools to
 > resolve. If `mise install` stops on a rate limit, `export GITHUB_TOKEN=…` and run
 > `chezmoi apply` again.
 
@@ -113,6 +113,7 @@ Edit a shared file on the Mac and push it. The next `chezmoi update` on each ser
 | [`.gitconfig.local`](home/create_dot_gitconfig.local.tmpl) | Created once from your `init` answers, then left alone |
 | [`mise/config.toml`](home/dot_config/mise/config.toml) | The Mac's runtimes plus the CLI tools Homebrew provides on the Mac |
 | [`sheldon/plugins.toml`](home/dot_config/sheldon/plugins.toml) | Loads fzf with `fzf --zsh` instead of from `/opt/homebrew/opt/fzf` |
+| [`.claude/settings.json`](home/dot_claude/modify_settings.json) | Not a copy: merges only the `statusLine` key into Claude Code's own file, so Claude Code shows the `claude-code` profile from `starship.toml`. The Mac's `install.sh` sets the same key with `jq` |
 
 ### Shared (pulled from [macos-dot-files](https://github.com/seifscape/macos-dot-files))
 
@@ -156,6 +157,7 @@ from source on the Pi.
 sheldon   starship  zoxide    atuin     fzf       eza       bat
 delta     fd        ripgrep   jq        btop      duf       dust
 procs     tealdeer  yazi      fastfetch neovim    lazygit   gh
+claude
 ```
 
 **From pacman / apt:** `zsh` `tmux` `git` `curl` `wget` `tree` `ncdu` `base-devel` / `build-essential`, plus JetBrains Mono Nerd Font, the Mac's Ghostty font, for a local terminal (over SSH the Mac draws the fonts): `ttf-jetbrains-mono-nerd` from pacman on Arch, and the [nerd-fonts release](https://github.com/ryanoasis/nerd-fonts/releases) into `~/.local/share/fonts` on the Pi
@@ -207,11 +209,14 @@ linux-dot-files/
     │   ├── run_once_before_10-base-packages.sh
     │   ├── run_once_before_20-install-mise.sh
     │   └── run_onchange_after_30-mise-install.sh.tmpl
+    ├── .chezmoiremove                 # deletes a local config.ghostty so it can't mix with the shared one
     ├── create_dot_gitconfig.local.tmpl
     ├── dot_gitconfig
     ├── dot_zprofile
     ├── dot_zshenv
     ├── dot_zshrc
+    ├── dot_claude/
+    │   └── modify_settings.json       # merges statusLine into Claude Code's settings
     └── dot_config/
         ├── mise/config.toml
         └── sheldon/plugins.toml
