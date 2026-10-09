@@ -30,7 +30,7 @@ two machines:
 
 | Machine | OS | CPU | RAM | Storage | Arch |
 |---------|----|-----|-----|---------|------|
-| Beelink SER9 MAX | Arch Linux | Ryzen AI 7 350 (Radeon 860M) | 64 GB DDR5 | 1 TB NVMe | `x86_64` |
+| Beelink SER9 MAX | Arch Linux | Ryzen AI 7 350 (Radeon 860M) | 32 GB DDR5 | 1 TB NVMe | `x86_64` |
 | Raspberry Pi 5 | Raspberry Pi OS (64-bit) | Cortex-A76 | 8 GB | 2 TB NVMe | `arm64` |
 
 The screenshot shows the Mac. Over SSH from Ghostty the servers look the same, because the
@@ -119,7 +119,7 @@ Edit a shared file on the Mac and push it. The next `chezmoi update` on each ser
 | | |
 |---|---|
 | **Shell** | `.aliases` · `.functions` · `.exports` · `.zsh_bindings` |
-| **Terminal** | `.tmux.conf` · `tmux.reset.conf` · `starship.toml` |
+| **Terminal** | Ghostty `config` · `.tmux.conf` · `tmux.reset.conf` · `starship.toml` |
 | **Editor** | the whole `~/.config/nvim` directory (LazyVim) |
 | **Tools** | atuin · btop · delta · gh-dash · `dev-updates.sh` |
 | **Git** | `.gitignore_global` |

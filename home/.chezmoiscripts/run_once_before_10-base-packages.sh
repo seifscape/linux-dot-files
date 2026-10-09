@@ -4,7 +4,8 @@
 set -euo pipefail
 
 if command -v pacman >/dev/null; then
-  sudo pacman -Syu --needed --noconfirm \
+  # -S --needed only installs what's missing; system upgrades stay manual (pacman -Syu).
+  sudo pacman -S --needed --noconfirm \
     zsh tmux git curl wget unzip xz ca-certificates \
     base-devel tree ncdu \
     ttf-jetbrains-mono-nerd   # same font as the Mac's Ghostty, for a local terminal

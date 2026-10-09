@@ -1,0 +1,5 @@
+# Files chezmoi deletes on apply.
+
+# Ghostty's config now comes from macos-dot-files as ~/.config/ghostty/config.
+# Ghostty also reads config.ghostty, so remove any local one to avoid mixing the two.
+.config/ghostty/config.ghostty
