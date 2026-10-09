@@ -200,6 +200,15 @@ claude    lazydocker
 | Edit a Linux-only file | `chezmoi edit ~/.zshrc`, then `chezmoi apply` |
 | Preview what would change | `chezmoi diff` |
 | Upgrade every mise tool | `dev-refresh` |
+| Edit a root-owned file (`/opt/stacks/…`, `/etc/…`) | `sudoedit <file>` — never `sudo nvim` |
+| Put Neovim plugins back on the pinned versions | `nvim --headless "+Lazy! restore" +qa` |
+
+> [!WARNING]
+> `sudo nvim` runs Neovim as root inside your home folder, so its undo history, plugin
+> checkouts and caches under `~/.local/share/nvim`, `~/.local/state/nvim` and `~/.cache/nvim`
+> become root-owned and break later updates. `sudoedit` (or `sudo -e`) edits a temp copy in your
+> own Neovim — `EDITOR=nvim` comes from the shared `.exports` — and only the save runs as root.
+> Likewise prefer `Lazy! restore` over `Lazy! sync`: the lock file comes from the Mac.
 
 > [!IMPORTANT]
 > Edit shared files **on the Mac**, in macos-dot-files, and push them. If you edit `~/.aliases`
