@@ -42,6 +42,10 @@
 [".config/nvim"]
     type = "archive"
     url = {{ $macos | quote }}
+    # exact: the folder becomes a copy of the Mac's config. Without it, files
+    # from an earlier nvim setup (a LazyVim starter clone, its .git, an extra
+    # lua/plugins/colorscheme.lua) stay mixed in and LazyVim still loads them.
+    exact = true
     stripComponents = 4
     include = ["*/nvim/.config/nvim/**"]
     refreshPeriod = "24h"

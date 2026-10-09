@@ -8,6 +8,12 @@
 .oh-my-zsh
 .p10k.zsh
 .zshrc.pre-oh-my-zsh
+# ...and their caches: Powerlevel10k's instant prompt and dumps, the old
+# completion cache, and Oh My Zsh's per-host compdumps. Plain ~/.zcompdump
+# is today's compinit and stays.
+.cache/p10k-*
+.cache/zsh
+.zcompdump-*
 
 # Claude Code's native installer. mise installs claude now (see mise/config.toml),
 # and leaving this copy in ~/.local/bin means two of them on PATH.
