@@ -9,8 +9,9 @@ rust = "latest"
 fnox = "latest"
 aube = "latest"
 
-# ── terminal tools ── Homebrew provides these on the Mac. Ubuntu's apt is
-# missing most of them, and mise has arm64 builds for the Pi.
+# ── terminal tools ── Homebrew provides these on the Mac. Raspberry Pi OS's apt is
+# missing most of them and mise has arm64 builds for the Pi; Arch (SER9 MAX) uses
+# mise too so both machines run the same versions.
 sheldon = "latest"
 starship = "latest"
 zoxide = "latest"

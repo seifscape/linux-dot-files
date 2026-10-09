@@ -2,9 +2,10 @@
 
 # linux dot files
 
-**The macOS terminal on Ubuntu Server, set up with one command per machine**
+**The macOS terminal on Arch Linux and Raspberry Pi OS, set up with one command per machine**
 
-![Ubuntu](https://img.shields.io/badge/Ubuntu_Server-E95420?style=flat-square&logo=ubuntu&logoColor=white)
+![Arch Linux](https://img.shields.io/badge/Arch_Linux-1793D1?style=flat-square&logo=archlinux&logoColor=white)
+![Raspberry Pi OS](https://img.shields.io/badge/Raspberry_Pi_OS-A22846?style=flat-square&logo=raspberrypi&logoColor=white)
 ![Raspberry Pi](https://img.shields.io/badge/Raspberry_Pi_5-A22846?style=flat-square&logo=raspberrypi&logoColor=white)
 ![Arch](https://img.shields.io/badge/arm64_%7C_x86__64-363a4f?style=flat-square)
 ![chezmoi](https://img.shields.io/badge/Managed_by-chezmoi-4B91E2?style=flat-square)
@@ -25,12 +26,12 @@
 This is the same shell as [macos-dot-files](https://github.com/seifscape/macos-dot-files): Zsh
 with Sheldon, a Catppuccin Starship prompt, tmux with TPM, LazyVim, Atuin history, and the
 modern CLI replacements (`eza`, `bat`, `delta`, `zoxide`, `fzf`, `btop` and more). It runs on
-two headless machines:
+two machines:
 
-| Machine | CPU | RAM | Storage | Arch |
-|---------|-----|-----|---------|------|
-| Raspberry Pi 5 | Cortex-A76 | 8 GB | 2 TB NVMe | `arm64` |
-| Beelink SER9 MAX | Ryzen 7 H 255 | 64 GB DDR5 | 1 TB NVMe | `x86_64` |
+| Machine | OS | CPU | RAM | Storage | Arch |
+|---------|----|-----|-----|---------|------|
+| Beelink SER9 MAX | Arch Linux | Ryzen 7 H 255 | 64 GB DDR5 | 1 TB NVMe | `x86_64` |
+| Raspberry Pi 5 | Raspberry Pi OS (64-bit) | Cortex-A76 | 8 GB | 2 TB NVMe | `arm64` |
 
 The screenshot shows the Mac. Over SSH from Ghostty the servers look the same, because the
 Mac renders the fonts and colours.
@@ -39,7 +40,7 @@ Mac renders the fonts and colours.
 
 ## Quick start
 
-On a fresh Ubuntu Server install, run:
+On a fresh Arch or Raspberry Pi OS (64-bit) install, run:
 
 ```bash
 sh -c "$(curl -fsLS get.chezmoi.io)" -b ~/.local/bin -- init --apply seifscape/linux-dot-files
@@ -50,7 +51,7 @@ That command does five things:
 | Step | What happens | Where |
 |:----:|--------------|-------|
 | 1 | Asks for your git name and email, which are stored locally and never committed | [`.chezmoi.toml.tmpl`](home/.chezmoi.toml.tmpl) |
-| 2 | Installs zsh, tmux, git and build tools with apt, and makes zsh the login shell | [`run_once_before_10-apt-packages.sh`](home/.chezmoiscripts/run_once_before_10-apt-packages.sh) |
+| 2 | Installs zsh, tmux, git and build tools with pacman (Arch) or apt (Raspberry Pi OS), and makes zsh the login shell | [`run_once_before_10-base-packages.sh`](home/.chezmoiscripts/run_once_before_10-base-packages.sh) |
 | 3 | Installs [mise](https://mise.jdx.dev) into `~/.local/bin` | [`run_once_before_20-install-mise.sh`](home/.chezmoiscripts/run_once_before_20-install-mise.sh) |
 | 4 | Writes the dotfiles and pulls the shared ones from macos-dot-files | [`.chezmoiexternal.toml.tmpl`](home/.chezmoiexternal.toml.tmpl) |
 | 5 | Runs `mise install`, `sheldon lock` and `bat cache --build` | [`run_onchange_after_30-mise-install.sh.tmpl`](home/.chezmoiscripts/run_onchange_after_30-mise-install.sh.tmpl) |
@@ -86,13 +87,13 @@ flowchart LR
         direction TB
         C[".zshrc · .zprofile · .gitconfig"]
         D["mise tools · sheldon plugins"]
-        E["apt + mise bootstrap"]
+        E["pacman/apt + mise bootstrap"]
     end
     U["upstream<br/>tpm · catppuccin themes"]
     mac -- "tarball, refreshed daily" --> S
     linux -- "chezmoi source" --> S
     U -- "git / raw, weekly" --> S
-    S(["chezmoi apply"]) --> P["Pi 5"] & M["Beelink SER9 MAX"]
+    S(["chezmoi apply"]) --> M["Beelink SER9 MAX"] & P["Pi 5"]
 ```
 
 Edit a shared file on the Mac and push it. The next `chezmoi update` on each server picks it up.
@@ -135,8 +136,8 @@ Edit a shared file on the Mac and push it. The next `chezmoi update` on each ser
 
 ## Tools
 
-Ubuntu's apt is missing most of these tools or ships old versions, and mise has native builds
-for both architectures. The runtimes use the same pins as the Mac, with three differences:
+Debian's apt is missing most of these tools or ships old versions, and mise has native builds
+for both architectures, so both machines get them from mise even though Arch's repos have them. The runtimes use the same pins as the Mac, with three differences:
 `ruby@ios` and `tuist` are left out, and `python.compile` is off because it would build Python
 from source on the Pi.
 
@@ -157,7 +158,7 @@ delta     fd        ripgrep   jq        btop      duf       dust
 procs     tealdeer  yazi      fastfetch neovim    lazygit   gh
 ```
 
-**From apt:** `zsh` `tmux` `git` `curl` `wget` `tree` `ncdu` `build-essential`
+**From pacman / apt:** `zsh` `tmux` `git` `curl` `wget` `tree` `ncdu` `base-devel` / `build-essential`
 
 ---
 
@@ -203,7 +204,7 @@ linux-dot-files/
     ├── .chezmoi.toml.tmpl             # git name/email prompts · macosRef
     ├── .chezmoiexternal.toml.tmpl     # shared files + tpm + catppuccin themes
     ├── .chezmoiscripts/
-    │   ├── run_once_before_10-apt-packages.sh
+    │   ├── run_once_before_10-base-packages.sh
     │   ├── run_once_before_20-install-mise.sh
     │   └── run_onchange_after_30-mise-install.sh.tmpl
     ├── create_dot_gitconfig.local.tmpl
