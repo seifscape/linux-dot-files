@@ -21,7 +21,9 @@
 
 ## What you get
 
-![Screenshot](https://raw.githubusercontent.com/seifscape/macos-dot-files/main/screenshots/preview.png)
+![sirius, the SER9 MAX on Arch Linux](screenshots/sirius.png)
+
+![nebula, the Raspberry Pi 5 on Raspberry Pi OS](screenshots/nebula.png)
 
 This is the same shell as [macos-dot-files](https://github.com/seifscape/macos-dot-files): Zsh
 with Sheldon, a Catppuccin Starship prompt, tmux with TPM, LazyVim, Atuin history, and the
@@ -33,8 +35,8 @@ two machines:
 | Beelink SER9 MAX | Arch Linux | Ryzen AI 7 350 (Radeon 860M) | 64 GB DDR5-5600 (32 GB reserved for the GPU) | 1 TB NVMe | `x86_64` |
 | Raspberry Pi 5 | Raspberry Pi OS (64-bit) | Cortex-A76 | 8 GB | 2 TB NVMe | `arm64` |
 
-The screenshot shows the Mac. Over SSH from Ghostty the servers look the same, because the
-Mac renders the fonts and colours.
+Both screenshots were taken over SSH from Ghostty on the Mac, which renders the fonts and
+colours. The fastfetch layout is the Mac's own config; only the logo differs per machine.
 
 ---
 
@@ -238,6 +240,7 @@ Everything listed under *Shared* runs on both systems, so follow these rules whe
 ```
 linux-dot-files/
 ├── .chezmoiroot                       # source lives in home/, which keeps README out of $HOME
+├── screenshots/                      # sirius.png · nebula.png, for this README
 └── home/
     ├── .chezmoi.toml.tmpl             # git name/email prompts · macosRef
     ├── .chezmoiexternal.toml.tmpl     # shared files + tpm + catppuccin themes
