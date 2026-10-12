@@ -1,0 +1,9 @@
+# Linux-only Ghostty settings, from linux-dot-files. Ghostty loads this file
+# next to the shared `config` that chezmoi pulls from the Mac. These keys give
+# Super (Meta) the Mac's Cmd shortcuts; macOS already has them by default.
+
+# Like Cmd+K on the Mac: clear the screen and scrollback
+keybind = super+k=clear_screen
+
+# Like Cmd+T on the Mac: new tab
+keybind = super+t=new_tab

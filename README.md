@@ -120,6 +120,7 @@ Edit a shared file on the Mac and push it. The next `chezmoi update` on each ser
 | [`mise/config.toml`](home/dot_config/mise/config.toml.tmpl) | The CLI tools Homebrew provides on the Mac, plus the Mac's runtimes on a `dev` machine |
 | [`fastfetch/logo.txt.tmpl`](home/dot_config/fastfetch/logo.txt.tmpl) | The logo for the shared fastfetch config (pulled from the Mac): a Catppuccin-gradient Arch logo, or on a Pi the Raspberry Pi logo, since trixie-based Raspberry Pi OS reports itself as plain Debian. Sources live in [`.chezmoitemplates/fastfetch/`](home/.chezmoitemplates/fastfetch) |
 | `~/.zshrc.local` | Not in the repo. `.zshrc` sources it if present, for one machine's aliases and checks (the Pi's docker and Tailscale bits) |
+| [`ghostty/config.ghostty`](home/dot_config/ghostty/config.ghostty) | Linux-only Ghostty keys on top of the shared `config`: Super+K clears the screen and scrollback, Super+T opens a tab, like ⌘K and ⌘T on the Mac. Ghostty loads both files |
 | [`sheldon/plugins.toml`](home/dot_config/sheldon/plugins.toml) | Loads fzf with `fzf --zsh` instead of from `/opt/homebrew/opt/fzf` |
 | [`.claude/settings.json`](home/dot_claude/modify_settings.json) | Not a copy: merges two keys into Claude Code's own file and keeps the rest. `statusLine` shows the `claude-code` profile from `starship.toml`, as the Mac's `install.sh` does with `jq`. `env.DISABLE_AUTOUPDATER` leaves updates to mise, the way Homebrew owns them on the Mac; otherwise Claude Code's updater reinstalls itself under `~/.local/share/claude`, leaving two copies |
 
@@ -249,7 +250,7 @@ linux-dot-files/
     │   ├── run_once_before_10-base-packages.sh
     │   ├── run_once_before_20-install-mise.sh
     │   └── run_onchange_after_30-mise-install.sh.tmpl
-    ├── .chezmoiremove                 # deletes a local config.ghostty so it can't mix with the shared one
+    ├── .chezmoiremove                 # old files to delete: Oh My Zsh, the native claude install, …
     ├── create_dot_gitconfig.local.tmpl
     ├── dot_gitconfig
     ├── dot_zprofile
@@ -259,6 +260,7 @@ linux-dot-files/
     │   └── modify_settings.json       # merges statusLine + DISABLE_AUTOUPDATER into Claude Code's settings
     └── dot_config/
         ├── fastfetch/logo.txt.tmpl    # per-machine logo; config.jsonc comes from the Mac
+        ├── ghostty/config.ghostty     # Linux-only keys, loaded next to the Mac's config
         ├── mise/config.toml.tmpl      # tool list, by role
         └── sheldon/plugins.toml
 ```
