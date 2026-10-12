@@ -1,0 +1,7 @@
+{{- /* config.jsonc comes from macos-dot-files (.chezmoiexternal); it colours $N by its shared palette. */ -}}
+{{- if stat "/etc/rpi-issue" -}}
+{{- /* Raspberry Pi OS (trixie) reports plain Debian, so name the logo here. */ -}}
+{{ template "fastfetch/raspberry-pi.txt" }}
+{{- else -}}
+{{ template "fastfetch/arch.txt" }}
+{{- end -}}

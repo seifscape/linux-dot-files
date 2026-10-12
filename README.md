@@ -116,7 +116,7 @@ Edit a shared file on the Mac and push it. The next `chezmoi update` on each ser
 | [`.gitconfig`](home/dot_gitconfig) | Leaves out the Sourcetree difftool and Git Credential Manager |
 | [`.gitconfig.local`](home/create_dot_gitconfig.local.tmpl) | Created once from your `init` answers, then left alone |
 | [`mise/config.toml`](home/dot_config/mise/config.toml.tmpl) | The CLI tools Homebrew provides on the Mac, plus the Mac's runtimes on a `dev` machine |
-| [`fastfetch/config.jsonc`](home/dot_config/fastfetch/config.jsonc) | Pi only ([`.chezmoiignore`](home/.chezmoiignore)): forces the Raspberry Pi logo, since trixie-based Raspberry Pi OS reports itself as plain Debian |
+| [`fastfetch/logo.txt.tmpl`](home/dot_config/fastfetch/logo.txt.tmpl) | The logo for the shared fastfetch config (pulled from the Mac): a Catppuccin-gradient Arch logo, or on a Pi the Raspberry Pi logo, since trixie-based Raspberry Pi OS reports itself as plain Debian. Sources live in [`.chezmoitemplates/fastfetch/`](home/.chezmoitemplates/fastfetch) |
 | `~/.zshrc.local` | Not in the repo. `.zshrc` sources it if present, for one machine's aliases and checks (the Pi's docker and Tailscale bits) |
 | [`sheldon/plugins.toml`](home/dot_config/sheldon/plugins.toml) | Loads fzf with `fzf --zsh` instead of from `/opt/homebrew/opt/fzf` |
 | [`.claude/settings.json`](home/dot_claude/modify_settings.json) | Not a copy: merges two keys into Claude Code's own file and keeps the rest. `statusLine` shows the `claude-code` profile from `starship.toml`, as the Mac's `install.sh` does with `jq`. `env.DISABLE_AUTOUPDATER` leaves updates to mise, the way Homebrew owns them on the Mac; otherwise Claude Code's updater reinstalls itself under `~/.local/share/claude`, leaving two copies |
@@ -128,7 +128,7 @@ Edit a shared file on the Mac and push it. The next `chezmoi update` on each ser
 | **Shell** | `.aliases` · `.functions` · `.exports` · `.zsh_bindings` |
 | **Terminal** | Ghostty `config` · `.tmux.conf` · `tmux.reset.conf` · `starship.toml` |
 | **Editor** | the whole `~/.config/nvim` directory (LazyVim) |
-| **Tools** | atuin · btop · delta · gh-dash · `dev-updates.sh` |
+| **Tools** | atuin · btop · delta · gh-dash · fastfetch · `dev-updates.sh` |
 | **Git** | `.gitignore_global` |
 
 ### Upstream (replaces the Mac's manual clones)
@@ -241,6 +241,7 @@ linux-dot-files/
 └── home/
     ├── .chezmoi.toml.tmpl             # git name/email prompts · macosRef
     ├── .chezmoiexternal.toml.tmpl     # shared files + tpm + catppuccin themes
+    ├── .chezmoitemplates/fastfetch/   # Arch + Raspberry Pi logos for logo.txt.tmpl
     ├── .chezmoiscripts/
     │   ├── run_once_before_10-base-packages.sh
     │   ├── run_once_before_20-install-mise.sh
@@ -254,6 +255,7 @@ linux-dot-files/
     ├── dot_claude/
     │   └── modify_settings.json       # merges statusLine + DISABLE_AUTOUPDATER into Claude Code's settings
     └── dot_config/
+        ├── fastfetch/logo.txt.tmpl    # per-machine logo; config.jsonc comes from the Mac
         ├── mise/config.toml.tmpl      # tool list, by role
         └── sheldon/plugins.toml
 ```

@@ -22,3 +22,6 @@
 
 # lazydocker installed by hand on the Pi; mise provides it now.
 .local/bin/lazydocker
+
+# sirius's hand-made fastfetch logo; logo.txt (from logo.txt.tmpl) replaces it.
+.config/fastfetch/arch-catppuccin.txt
