@@ -186,7 +186,7 @@ The same pins as the Mac, with three differences: `ruby` and `tuist` are left ou
 ```
 sheldon   starship  zoxide    atuin     fzf       eza       bat
 delta     fd        ripgrep   jq        btop      duf       dust
-procs     tealdeer  yazi      fastfetch neovim    lazygit   gh
+procs     tealdeer  superfile fastfetch neovim    lazygit   gh
 claude    lazydocker
 ```
 
