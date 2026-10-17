@@ -7,3 +7,7 @@ keybind = super+k=clear_screen
 
 # Like Cmd+T on the Mac: new tab
 keybind = super+t=new_tab
+
+# Darker base than the Frappe theme's #303446 (Frappe "mantle"). Blur is done by
+# Hyprland here, so the Mac's glass look reads lighter/more transparent without it.
+background = #292c3c
