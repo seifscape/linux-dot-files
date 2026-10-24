@@ -265,6 +265,13 @@ linux-dot-files/
         └── sheldon/plugins.toml
 ```
 
+## Credits
+
+The tmux setup and the Ghostty starfield shader (both shared from [macos-dot-files](https://github.com/seifscape/macos-dot-files))
+come from [omerxx/dotfiles](https://github.com/omerxx/dotfiles), including the
+[catppuccin-tmux](https://github.com/omerxx/catppuccin-tmux), [tmux-sessionx](https://github.com/omerxx/tmux-sessionx)
+and [tmux-floax](https://github.com/omerxx/tmux-floax) plugins. Colours: [Catppuccin](https://catppuccin.com).
+
 ---
 
 <div align="center">
