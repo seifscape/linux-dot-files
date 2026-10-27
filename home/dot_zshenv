@@ -11,6 +11,11 @@ typeset -U path PATH
 # mise installs itself here; uv tools land here too
 path=("$HOME/.local/bin" $path)
 
+# --------- locale ---------
+# Arch's sshd has no AcceptEnv, so ssh sessions arrive with no LANG and tmux
+# swaps every Nerd Font glyph for "_". Only set it when nothing else did.
+export LANG="${LANG:-en_US.UTF-8}"
+
 # --------- misc ---------
 # Read by Claude Code; lives here so non-interactive launches see it.
 export ENABLE_LSP_TOOLS=1
