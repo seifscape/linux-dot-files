@@ -44,16 +44,19 @@
     executable = true
     refreshPeriod = "24h"
 
-[".config/cliamp"]
-    type = "archive"
+# cliamp creates its config 0600 and rewrites it that way, and its folder 0700
+# (home/dot_config/private_cliamp). chezmoi's default 0644/0755 made every
+# update prompt. `private` has no effect on `archive` externals, only on files.
+{{ range list "config.toml" "themes/catppuccin-frappe.toml" -}}
+[".config/cliamp/{{ . }}"]
+    type = "archive-file"
     url = {{ $macos | quote }}
-    # private: cliamp creates this folder 0700 and config.toml 0600 and rewrites
-    # them that way, so chezmoi's default 0755/0644 made every update prompt.
-    private = true
-    stripComponents = 4
-    include = ["*/cliamp/.config/cliamp/**"]
+    stripComponents = 1
+    path = "cliamp/.config/cliamp/{{ . }}"
+    private = {{ eq . "config.toml" }}
     refreshPeriod = "24h"
 
+{{ end -}}
 [".config/nvim"]
     type = "archive"
     url = {{ $macos | quote }}
