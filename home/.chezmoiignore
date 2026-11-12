@@ -1,0 +1,4 @@
+# LazyVim rewrites this itself (its "news" read marker), so it drifts from the
+# Mac's copy and chezmoi prompted on every update. The rest of ~/.config/nvim
+# still comes from the Mac.
+.config/nvim/lazyvim.json

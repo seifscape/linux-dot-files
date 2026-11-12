@@ -26,8 +26,6 @@
     ".config/ghostty/shaders/space.glsl" "ghostty/.config/ghostty/shaders/space.glsl"
     ".config/superfile/config.toml"     "superfile/.config/superfile/config.toml"
     ".config/fastfetch/config.jsonc"    "fastfetch/.config/fastfetch/config.jsonc"
-    ".config/cliamp/config.toml"        "cliamp/.config/cliamp/config.toml"
-    ".config/cliamp/themes/catppuccin-frappe.toml" "cliamp/.config/cliamp/themes/catppuccin-frappe.toml"
 -}}
 [{{ $target | quote }}]
     type = "archive-file"
@@ -44,6 +42,16 @@
     stripComponents = 1
     path = "scripts/.config/scripts/dev-updates.sh"
     executable = true
+    refreshPeriod = "24h"
+
+[".config/cliamp"]
+    type = "archive"
+    url = {{ $macos | quote }}
+    # private: cliamp creates this folder 0700 and config.toml 0600 and rewrites
+    # them that way, so chezmoi's default 0755/0644 made every update prompt.
+    private = true
+    stripComponents = 4
+    include = ["*/cliamp/.config/cliamp/**"]
     refreshPeriod = "24h"
 
 [".config/nvim"]
